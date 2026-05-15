@@ -5,7 +5,7 @@ on:
       branch:
         description: 'Release Branch'     
         required: true
-        default: '8.4'
+        default: '9.4'
         type: string
       bump:
         description: 'Bump type'     
@@ -16,13 +16,8 @@ on:
         - "patch"
         - "minor"
         - "major"
-      extra_gems_minor:
-        description: 'Additional gems to bump at minor level (space-separated). AWS gems are always included automatically. Only used during patch runs.'
-        required: false
-        default: ''
-        type: string
       extra_gems_major:
-        description: 'Gems to also bump at major level (space-separated). Used during patch or minor runs.'
+        description: 'Additional gems to bump at major level (space-separated).'
         required: false
         default: ''
         type: string
@@ -63,16 +58,15 @@ jobs:
       - run: git config --global user.email "43502315+logstashmachine@users.noreply.github.com"
       - run: git config --global user.name "logstashmachine"
       - run: ./gradlew clean installDefaultGems
-      - run: ./vendor/jruby/bin/jruby -S bundle update --all --${{ env.INPUTS_BUMP }} --strict
-      - name: Bump selected deps at minor level
+      - name: Bump all dependencies
+        run: ./vendor/jruby/bin/jruby -S bundle update --all --${{ env.INPUTS_BUMP }} --strict
+      - name: Bump externaldeps to minor
         if: ${{ inputs.bump == 'patch' }}
         run: |
-          AWS_GEMS=$(./vendor/jruby/bin/jruby -S bundle list --name-only | grep '^aws-')
-          EXTRA="${{ inputs.extra_gems_minor }}"
-          GEMS=$(echo "${AWS_GEMS} ${EXTRA}" | xargs)
-          if [ -n "$GEMS" ]; then
-            echo "Bumping at --minor: ${GEMS}"
-            ./vendor/jruby/bin/jruby -S bundle update $GEMS --minor --strict --conservative
+          EXTERNAL_GEMS=$(./vendor/jruby/bin/jruby -S bundle list | grep '^\s*\*' | awk '{print $2}' | grep -v '^logstash-' | tr '\n' ' ')
+          if [ -n "$EXTERNAL_GEMS" ]; then
+            echo "Bumping external deps at --minor: ${EXTERNAL_GEMS}"
+            ./vendor/jruby/bin/jruby -S bundle update $EXTERNAL_GEMS --minor --strict --conservative
           fi
       - name: Bump selected deps at major level
         if: ${{ inputs.bump != 'major' && inputs.extra_gems_major != '' }}

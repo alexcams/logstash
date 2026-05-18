@@ -45,36 +45,37 @@ GEM
       atomic (~> 1.1)
     avro (1.10.2)
       multi_json (~> 1)
-    aws-eventstream (1.3.0)
-    aws-partitions (1.992.0)
-    aws-sdk-cloudfront (1.109.0)
-      aws-sdk-core (~> 3, >= 3.216.0)
+    aws-eventstream (1.4.0)
+    aws-partitions (1.1249.0)
+    aws-sdk-cloudfront (1.147.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-cloudwatch (1.116.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-cloudwatch (1.136.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-core (3.226.3)
+    aws-sdk-core (3.247.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
       base64
+      bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.106.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-kms (1.125.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-resourcegroups (1.83.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-resourcegroups (1.96.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.192.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-s3 (1.222.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
-    aws-sdk-sns (1.100.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-sns (1.114.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-sqs (1.96.0)
-      aws-sdk-core (~> 3, >= 3.225.0)
+    aws-sdk-sqs (1.113.0)
+      aws-sdk-core (~> 3, >= 3.247.0)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
       aws-eventstream (~> 1, >= 1.0.2)
@@ -127,7 +128,7 @@ GEM
     equalizer (0.0.11)
     et-orbi (1.2.11)
       tzinfo
-    faraday (2.14.1)
+    faraday (2.14.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -305,7 +306,7 @@ GEM
       lru_redux (~> 1.1.0)
     logstash-filter-drop (3.0.5)
       logstash-core-plugin-api (>= 1.60, <= 2.99)
-    logstash-filter-elastic_integration (8.19.4-java)
+    logstash-filter-elastic_integration (8.19.6-java)
       logstash-core (>= 8.7.0)
       logstash-core-plugin-api (>= 1.60, <= 2.99)
     logstash-filter-elasticsearch (3.19.0)
@@ -574,7 +575,7 @@ GEM
       sequel (>= 5.74.0)
       tzinfo
       tzinfo-data
-    logstash-integration-kafka (11.8.8-java)
+    logstash-integration-kafka (11.8.9-java)
       logstash-codec-json
       logstash-codec-plain
       logstash-core (>= 8.3.0)
@@ -706,7 +707,7 @@ GEM
     mini_mime (1.1.5)
     minitar (1.0.2)
     msgpack (1.8.0-java)
-    multi_json (1.14.0)
+    multi_json (1.19.1)
     multipart-post (2.4.1)
     murmurhash3 (0.1.6-java)
     mustache (0.99.8)
@@ -715,7 +716,7 @@ GEM
     naught (1.1.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.13)
+    net-imap (0.5.14)
       date
       net-protocol
     net-pop (0.1.2)
@@ -751,7 +752,7 @@ GEM
     psych (5.2.2-java)
       date
       jar-dependencies (>= 0.1.7)
-    public_suffix (4.0.1)
+    public_suffix (5.1.1)
     puma (6.6.1-java)
       nio4r (~> 2.0)
     raabro (1.4.0)
@@ -810,7 +811,7 @@ GEM
       faraday (>= 0.17.3, < 3)
     semantic_logger (3.4.1)
       concurrent-ruby (~> 1.0)
-    sequel (5.88.0)
+    sequel (5.104.0)
       bigdecimal
     simple_oauth (0.3.1)
     simplecov (0.22.0)

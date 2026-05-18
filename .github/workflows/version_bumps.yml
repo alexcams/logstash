@@ -40,21 +40,21 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Fetch logstash-core team member list
-        uses: tspascoal/get-user-teams-membership@818140d631d5f29f26b151afbe4179f87d9ceb5e #v4.0.1
-        with: 
-          username: ${{ github.actor }}
-          organization: elastic
-          team: logstash
-          GITHUB_TOKEN: ${{ secrets.READ_ORG_SECRET_JSVD }}
-      - name: Is user a core team member?
-        if: ${{ steps.checkUserMember.outputs.isTeamMember == 'false' }}
-        run: exit 1
+      # - name: Fetch logstash-core team member list
+      #   uses: tspascoal/get-user-teams-membership@818140d631d5f29f26b151afbe4179f87d9ceb5e #v4.0.1
+      #   with: 
+      #     username: ${{ github.actor }}
+      #     organization: elastic
+      #     team: logstash
+      #     GITHUB_TOKEN: ${{ secrets.READ_ORG_SECRET_JSVD }}
+      # - name: Is user a core team member?
+      #   if: ${{ steps.checkUserMember.outputs.isTeamMember == 'false' }}
+      #   run: exit 1
       - name: checkout repo content
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: ${{ env.INPUTS_BRANCH }}
+          ref: ${{ github.ref }}
       - run: git config --global user.email "43502315+logstashmachine@users.noreply.github.com"
       - run: git config --global user.name "logstashmachine"
       - run: ./gradlew clean installDefaultGems
@@ -87,18 +87,18 @@ jobs:
           git commit -m "Update ${{ env.INPUTS_BUMP }} plugin versions in gemfile lock" -a
           git push origin $BRANCH
 
-      - name: Update mergify (minor only)
-        if: ${{ inputs.bump == 'minor' }}
-        continue-on-error: true
-        run: make -C .ci mergify BACKPORT_LABEL=$BACKPORT_LABEL BRANCH=$INPUTS_BRANCH PUSH_BRANCH=$BRANCH
+      # - name: Update mergify (minor only)
+      #   if: ${{ inputs.bump == 'minor' }}
+      #   continue-on-error: true
+      #   run: make -C .ci mergify BACKPORT_LABEL=$BACKPORT_LABEL BRANCH=$INPUTS_BRANCH PUSH_BRANCH=$BRANCH
 
-      - name: Create Pull Request
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X POST -d "{\"title\": \"bump lock file for ${{ env.INPUTS_BRANCH }}\",\"head\": \"${BRANCH}\",\"base\": \"${{ env.INPUTS_BRANCH }}\"}" https://api.github.com/repos/elastic/logstash/pulls
+      # - name: Create Pull Request
+      #   run: |
+      #     curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X POST -d "{\"title\": \"bump lock file for ${{ env.INPUTS_BRANCH }}\",\"head\": \"${BRANCH}\",\"base\": \"${{ env.INPUTS_BRANCH }}\"}" https://api.github.com/repos/elastic/logstash/pulls
 
-      - name: Create GitHub backport label (Mergify) (minor only)
-        if: ${{ inputs.bump == 'minor' }}
-        continue-on-error: true
-        run: make -C .ci backport-label BACKPORT_LABEL=$BACKPORT_LABEL
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create GitHub backport label (Mergify) (minor only)
+      #   if: ${{ inputs.bump == 'minor' }}
+      #   continue-on-error: true
+      #   run: make -C .ci backport-label BACKPORT_LABEL=$BACKPORT_LABEL
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
